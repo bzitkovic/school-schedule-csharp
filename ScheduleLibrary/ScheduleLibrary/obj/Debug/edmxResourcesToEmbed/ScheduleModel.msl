@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchedulesModelStoreContainer" CdmEntityContainer="SchedulesEntities1">
+    <EntitySetMapping Name="Durations">
+      <EntityTypeMapping TypeName="SchedulesModel.Duration">
+        <MappingFragment StoreEntitySet="Durations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Halls">
+      <EntityTypeMapping TypeName="SchedulesModel.Hall">
+        <MappingFragment StoreEntitySet="Halls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professors">
+      <EntityTypeMapping TypeName="SchedulesModel.Professor">
+        <MappingFragment StoreEntitySet="Professors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="SchedulesModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="SchedulesModel.Subject">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Ects" ColumnName="Ects" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="SchedulesModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Subject_Schedule" TypeName="SchedulesModel.Subject_Schedule" StoreEntitySet="Subject_Schedule">
+      <EndProperty Name="Schedules">
+        <ScalarProperty Name="Id" ColumnName="IdSchedule" />
+      </EndProperty>
+      <EndProperty Name="Subjects">
+        <ScalarProperty Name="Id" ColumnName="IdSubject" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Subjects_Durations" TypeName="SchedulesModel.Subjects_Durations" StoreEntitySet="Subjects_Durations">
+      <EndProperty Name="Durations">
+        <ScalarProperty Name="Id" ColumnName="IdDuration" />
+      </EndProperty>
+      <EndProperty Name="Subjects">
+        <ScalarProperty Name="Id" ColumnName="IdSubject" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Subjects_Halls" TypeName="SchedulesModel.Subjects_Halls" StoreEntitySet="Subjects_Halls">
+      <EndProperty Name="Halls">
+        <ScalarProperty Name="Id" ColumnName="IdHall" />
+      </EndProperty>
+      <EndProperty Name="Subjects">
+        <ScalarProperty Name="Id" ColumnName="IdSubject" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Subjects_Professors" TypeName="SchedulesModel.Subjects_Professors" StoreEntitySet="Subjects_Professors">
+      <EndProperty Name="Professors">
+        <ScalarProperty Name="Id" ColumnName="IdProfessor" />
+      </EndProperty>
+      <EndProperty Name="Subjects">
+        <ScalarProperty Name="Id" ColumnName="IdSubject" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchedulesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Durations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Halls">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seats" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Professors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject_Schedule">
+          <Key>
+            <PropertyRef Name="IdSchedule" />
+            <PropertyRef Name="IdSubject" />
+          </Key>
+          <Property Name="IdSchedule" Type="int" Nullable="false" />
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ects" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects_Durations">
+          <Key>
+            <PropertyRef Name="IdSubject" />
+            <PropertyRef Name="IdDuration" />
+          </Key>
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+          <Property Name="IdDuration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects_Halls">
+          <Key>
+            <PropertyRef Name="IdHall" />
+            <PropertyRef Name="IdSubject" />
+          </Key>
+          <Property Name="IdHall" Type="int" Nullable="false" />
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects_Professors">
+          <Key>
+            <PropertyRef Name="IdProfessor" />
+            <PropertyRef Name="IdSubject" />
+          </Key>
+          <Property Name="IdProfessor" Type="int" Nullable="false" />
+          <Property Name="IdSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Schedules_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Schedule_Schedules">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subject_Schedule" Type="Self.Subject_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject_Schedule">
+              <PropertyRef Name="IdSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subject_Schedule_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subject_Schedule" Type="Self.Subject_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject_Schedule">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Durations_Durations">
+          <End Role="Durations" Type="Self.Durations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Durations" Type="Self.Subjects_Durations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Durations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Durations">
+              <PropertyRef Name="IdDuration" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Durations_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Durations" Type="Self.Subjects_Durations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Durations">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Halls_Halls">
+          <End Role="Halls" Type="Self.Halls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Halls" Type="Self.Subjects_Halls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Halls">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Halls">
+              <PropertyRef Name="IdHall" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Halls_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Halls" Type="Self.Subjects_Halls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Halls">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Professors_Professors">
+          <End Role="Professors" Type="Self.Professors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Professors" Type="Self.Subjects_Professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Professors">
+              <PropertyRef Name="IdProfessor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Professors_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Subjects_Professors" Type="Self.Subjects_Professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subjects_Professors">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchedulesModelStoreContainer">
+          <EntitySet Name="Durations" EntityType="Self.Durations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Halls" EntityType="Self.Halls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professors" EntityType="Self.Professors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject_Schedule" EntityType="Self.Subject_Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects_Durations" EntityType="Self.Subjects_Durations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects_Halls" EntityType="Self.Subjects_Halls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects_Professors" EntityType="Self.Subjects_Professors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Schedules_Users" Association="Self.FK_Schedules_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Schedule_Schedules" Association="Self.FK_Subject_Schedule_Schedules">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Subject_Schedule" EntitySet="Subject_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Schedule_Subjects" Association="Self.FK_Subject_Schedule_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subject_Schedule" EntitySet="Subject_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Durations_Durations" Association="Self.FK_Subjects_Durations_Durations">
+            <End Role="Durations" EntitySet="Durations" />
+            <End Role="Subjects_Durations" EntitySet="Subjects_Durations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Durations_Subjects" Association="Self.FK_Subjects_Durations_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjects_Durations" EntitySet="Subjects_Durations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Halls_Halls" Association="Self.FK_Subjects_Halls_Halls">
+            <End Role="Halls" EntitySet="Halls" />
+            <End Role="Subjects_Halls" EntitySet="Subjects_Halls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Halls_Subjects" Association="Self.FK_Subjects_Halls_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjects_Halls" EntitySet="Subjects_Halls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Professors_Professors" Association="Self.FK_Subjects_Professors_Professors">
+            <End Role="Professors" EntitySet="Professors" />
+            <End Role="Subjects_Professors" EntitySet="Subjects_Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Professors_Subjects" Association="Self.FK_Subjects_Professors_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Subjects_Professors" EntitySet="Subjects_Professors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchedulesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Duration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subjects_Durations" FromRole="Durations" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Hall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Seats" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subjects_Halls" FromRole="Halls" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subjects_Professors" FromRole="Professors" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Schedules_Users" FromRole="Schedules" ToRole="Users" />
+          <NavigationProperty Name="Subjects" Relationship="Self.Subject_Schedule" FromRole="Schedules" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ects" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.Subject_Schedule" FromRole="Subjects" ToRole="Schedules" />
+          <NavigationProperty Name="Durations" Relationship="Self.Subjects_Durations" FromRole="Subjects" ToRole="Durations" />
+          <NavigationProperty Name="Halls" Relationship="Self.Subjects_Halls" FromRole="Subjects" ToRole="Halls" />
+          <NavigationProperty Name="Professors" Relationship="Self.Subjects_Professors" FromRole="Subjects" ToRole="Professors" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedules_Users" FromRole="Users" ToRole="Schedules" />
+        </EntityType>
+        <Association Name="FK_Schedules_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subject_Schedule">
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="*" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+        </Association>
+        <Association Name="Subjects_Durations">
+          <End Role="Durations" Type="Self.Duration" Multiplicity="*" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+        </Association>
+        <Association Name="Subjects_Halls">
+          <End Role="Halls" Type="Self.Hall" Multiplicity="*" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+        </Association>
+        <Association Name="Subjects_Professors">
+          <End Role="Professors" Type="Self.Professor" Multiplicity="*" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SchedulesEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Durations" EntityType="Self.Duration" />
+          <EntitySet Name="Halls" EntityType="Self.Hall" />
+          <EntitySet Name="Professors" EntityType="Self.Professor" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Schedules_Users" Association="Self.FK_Schedules_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Subject_Schedule" Association="Self.Subject_Schedule">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="Subjects_Durations" Association="Self.Subjects_Durations">
+            <End Role="Durations" EntitySet="Durations" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="Subjects_Halls" Association="Self.Subjects_Halls">
+            <End Role="Halls" EntitySet="Halls" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="Subjects_Professors" Association="Self.Subjects_Professors">
+            <End Role="Professors" EntitySet="Professors" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchedulesModelStoreContainer" CdmEntityContainer="SchedulesEntities1">
+          <EntitySetMapping Name="Durations">
+            <EntityTypeMapping TypeName="SchedulesModel.Duration">
+              <MappingFragment StoreEntitySet="Durations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Halls">
+            <EntityTypeMapping TypeName="SchedulesModel.Hall">
+              <MappingFragment StoreEntitySet="Halls">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professors">
+            <EntityTypeMapping TypeName="SchedulesModel.Professor">
+              <MappingFragment StoreEntitySet="Professors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="SchedulesModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="SchedulesModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Ects" ColumnName="Ects" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SchedulesModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Subject_Schedule" TypeName="SchedulesModel.Subject_Schedule" StoreEntitySet="Subject_Schedule">
+            <EndProperty Name="Schedules">
+              <ScalarProperty Name="Id" ColumnName="IdSchedule" />
+            </EndProperty>
+            <EndProperty Name="Subjects">
+              <ScalarProperty Name="Id" ColumnName="IdSubject" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Subjects_Durations" TypeName="SchedulesModel.Subjects_Durations" StoreEntitySet="Subjects_Durations">
+            <EndProperty Name="Durations">
+              <ScalarProperty Name="Id" ColumnName="IdDuration" />
+            </EndProperty>
+            <EndProperty Name="Subjects">
+              <ScalarProperty Name="Id" ColumnName="IdSubject" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Subjects_Halls" TypeName="SchedulesModel.Subjects_Halls" StoreEntitySet="Subjects_Halls">
+            <EndProperty Name="Halls">
+              <ScalarProperty Name="Id" ColumnName="IdHall" />
+            </EndProperty>
+            <EndProperty Name="Subjects">
+              <ScalarProperty Name="Id" ColumnName="IdSubject" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Subjects_Professors" TypeName="SchedulesModel.Subjects_Professors" StoreEntitySet="Subjects_Professors">
+            <EndProperty Name="Professors">
+              <ScalarProperty Name="Id" ColumnName="IdProfessor" />
+            </EndProperty>
+            <EndProperty Name="Subjects">
+              <ScalarProperty Name="Id" ColumnName="IdSubject" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,11 @@
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\ScheduleLibrary.dll.config
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\ScheduleLibrary.dll
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\ScheduleLibrary.pdb
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\EntityFramework.dll
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\EntityFramework.SqlServer.dll
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\EntityFramework.xml
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\bin\Debug\EntityFramework.SqlServer.xml
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\obj\Debug\ScheduleLibrary.csproj.CopyComplete
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\obj\Debug\ScheduleLibrary.dll
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\obj\Debug\ScheduleLibrary.pdb
+F:\coding\schedule\ScheduleLibrary\ScheduleLibrary\obj\Debug\ScheduleLibrary.csprojAssemblyReference.cache
