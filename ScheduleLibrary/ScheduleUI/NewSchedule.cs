@@ -25,9 +25,16 @@ namespace ScheduleUI
         {
             string name = txtName.Text;
 
-            ScheduleLogic.CreateSchedule(currentUser, name);
+            if(name != "")
+            {
+                GlobalConfig.Schedule.CreateSchedule(currentUser, name);
 
-            this.Close();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Name can't be empty!");
+            }           
         }
     }
 }

@@ -38,7 +38,7 @@ namespace ScheduleUI
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid number of seats!");
+                    MessageBox.Show("Form is not valid!");
                 }              
             }
             else
@@ -54,7 +54,7 @@ namespace ScheduleUI
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid number of seats!");
+                    MessageBox.Show("Form is not valid!");
                 }                             
             }
 
@@ -85,6 +85,11 @@ namespace ScheduleUI
             int numberOfSeats = 0;
 
             if (!int.TryParse(txtNumberOfSeats.Text, out numberOfSeats))
+            {
+                output = false;
+            }
+
+            if (txtName.Text == "")
             {
                 output = false;
             }

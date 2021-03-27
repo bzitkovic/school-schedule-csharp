@@ -37,7 +37,7 @@ namespace ScheduleUI
                 }
                 else
                 {
-                    MessageBox.Show("Email is not valid!");
+                    MessageBox.Show("Form is not valid!");
                 }             
             }
             else
@@ -54,7 +54,7 @@ namespace ScheduleUI
                 }
                 else
                 {
-                    MessageBox.Show("Email is not valid!");
+                    MessageBox.Show("Form is not valid!");
                 }              
             }
 
@@ -68,6 +68,11 @@ namespace ScheduleUI
             bool output = true;           
 
             if (!txtEmail.Text.Contains("@"))
+            {
+                output = false;
+            }
+
+            if (txtName.Text == "")
             {
                 output = false;
             }

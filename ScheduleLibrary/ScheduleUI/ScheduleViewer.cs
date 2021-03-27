@@ -20,7 +20,7 @@ namespace ScheduleUI
 
             selectedSchedule = schedule;
 
-            dgvSheduleSubjects.DataSource = ScheduleLogic.GetSelectedScheduleSubjects(selectedSchedule);
+            dgvSheduleSubjects.DataSource = GlobalConfig.Schedule.GetSelectedScheduleSubjects(selectedSchedule);
 
             HideUnnecessaryFields();
 
@@ -74,12 +74,12 @@ namespace ScheduleUI
 
         private void cmbFilterByDay_SelectedIndexChanged(object sender, EventArgs e)
         {           
-            dgvSheduleSubjects.DataSource = ScheduleLogic.GetFilteredScheduleSubjects(selectedSchedule, cmbFilterByDay.SelectedItem.ToString());
+            dgvSheduleSubjects.DataSource = GlobalConfig.Schedule.GetFilteredScheduleSubjects(selectedSchedule, cmbFilterByDay.SelectedItem.ToString());
         }
 
         private void btnDeleteSchedule_Click(object sender, EventArgs e)
         {
-            ScheduleLogic.DeleteSchedule(selectedSchedule);
+            GlobalConfig.Schedule.DeleteSchedule(selectedSchedule);
 
             this.Close();
         }

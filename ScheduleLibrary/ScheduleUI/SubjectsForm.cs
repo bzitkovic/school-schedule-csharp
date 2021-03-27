@@ -192,77 +192,86 @@ namespace ScheduleUI
 
         private Subject GetChosenSubject()
         {
-            return dgvSubjects.CurrentRow.DataBoundItem as Subject;
+            return (dgvSubjects.CurrentRow != null ? dgvSubjects.CurrentRow.DataBoundItem as Subject : null);           
         }
 
         private void btnShowSubjectDetails_Click(object sender, EventArgs e)
         {
             chosenSubject = GetChosenSubject();
 
-            SubjectDetails frm = new SubjectDetails(chosenSubject);
-            frm.Show();
+            if (chosenSubject != null)
+            {
+                SubjectDetails frm = new SubjectDetails(chosenSubject);
+                frm.Show();
+            }         
         }
 
         private void btnEditSubject_Click(object sender, EventArgs e)
         {
             chosenSubject = GetChosenSubject();
 
-            txtName.Text = chosenSubject.Name;
-            txtEcts.Text = chosenSubject.Ects.ToString();
-            rtxtDescription.Text = chosenSubject.Description;
-
-            using (var context = new SchedulesEntities1())
+            if (chosenSubject != null)
             {
-                chosenSubject = GetChosenSubject();
-                context.Subjects.Attach(chosenSubject);
+                txtName.Text = chosenSubject.Name;
+                txtEcts.Text = chosenSubject.Ects.ToString();
+                rtxtDescription.Text = chosenSubject.Description;
 
-                var subject = context.Subjects.SingleOrDefault(x => x.Id == chosenSubject.Id);
-
-                var query = from p in context.Subjects.Include("Durations").Include("Halls").Include("Professors")
-                            where p.Id == chosenSubject.Id
-                            select p;
-
-                foreach (var s in query)
+                using (var context = new SchedulesEntities1())
                 {
-                    foreach (var d in s.Durations)
-                    {                        
-                        var query2 = from p in context.Durations.Include("Subjects")
-                                    where d.Id == p.Id
-                                    select p;
+                    chosenSubject = GetChosenSubject();
+                    context.Subjects.Attach(chosenSubject);
 
-                        foreach (var dd in query2)
-                        {                                                      
-                            txtStartTime.Text = dd.StartTime.ToString();
-                            txtEndTime.Text = dd.EndTime.ToString();
-                            cmbDay.SelectedItem = dd.Day;
+                    var subject = context.Subjects.SingleOrDefault(x => x.Id == chosenSubject.Id);
+
+                    var query = from p in context.Subjects.Include("Durations").Include("Halls").Include("Professors")
+                                where p.Id == chosenSubject.Id
+                                select p;
+
+                    foreach (var s in query)
+                    {
+                        foreach (var d in s.Durations)
+                        {
+                            var query2 = from p in context.Durations.Include("Subjects")
+                                         where d.Id == p.Id
+                                         select p;
+
+                            foreach (var dd in query2)
+                            {
+                                txtStartTime.Text = dd.StartTime.ToString();
+                                txtEndTime.Text = dd.EndTime.ToString();
+                                cmbDay.SelectedItem = dd.Day;
+                            }
+
+                            txtStartTime.Enabled = false;
+                            txtEndTime.Enabled = false;
+                            cmbDay.Enabled = false;
                         }
 
-                        txtStartTime.Enabled = false;
-                        txtEndTime.Enabled = false;
-                        cmbDay.Enabled = false;
+                        cmbProfessor.DataSource = s.Professors.ToList();
+                        cmbProfessor.Enabled = false;
+
+                        cmbHall.DataSource = s.Halls.ToList();
+                        cmbHall.Enabled = false;
+
+                        cmbSchedule.DataSource = s.Schedules.ToList();
+                        cmbSchedule.Enabled = false;
                     }
+                }
 
-                    cmbProfessor.DataSource = s.Professors.ToList();
-                    cmbProfessor.Enabled = false;                  
-
-                    cmbHall.DataSource = s.Halls.ToList();
-                    cmbHall.Enabled = false;
-
-                    cmbSchedule.DataSource = s.Schedules.ToList();
-                    cmbSchedule.Enabled = false;
-                }                                    
-            }
-           
-            btnAddSubject.Text = "Update subject";
+                btnAddSubject.Text = "Update subject";
+            }         
         }
 
         private void btnDeleteSubject_Click(object sender, EventArgs e)
         {
             chosenSubject = GetChosenSubject();
 
-            GlobalConfig.Subject.DeleteSubject(chosenSubject);
+            if (chosenSubject != null)
+            {
+                GlobalConfig.Subject.DeleteSubject(chosenSubject);
 
-            ShowAllSubjects();
+                ShowAllSubjects();
+            }           
         }
     }
 }

@@ -116,12 +116,6 @@
     <Compile Include="Professors.Designer.cs">
       <DependentUpon>Professors.cs</DependentUpon>
     </Compile>
-    <Compile Include="Register.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Register.Designer.cs">
-      <DependentUpon>Register.cs</DependentUpon>
-    </Compile>
     <Compile Include="ScheduleDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,9 +166,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Register.resx">
-      <DependentUpon>Register.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ScheduleDashboard.resx">
       <DependentUpon>ScheduleDashboard.cs</DependentUpon>
     </EmbeddedResource>

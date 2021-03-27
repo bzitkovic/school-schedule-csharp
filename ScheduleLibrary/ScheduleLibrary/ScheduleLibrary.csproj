@@ -62,7 +62,8 @@
     <Compile Include="ExtensionClasses\Hall.Ext.cs" />
     <Compile Include="Hall\HallLogic.cs" />
     <Compile Include="Hall\IHall.cs" />
-    <Compile Include="ISubject.cs" />
+    <Compile Include="Schedule\ISchedule.cs" />
+    <Compile Include="Subject\ISubject.cs" />
     <Compile Include="ExtensionClasses\Professor.Ext.cs" />
     <Compile Include="Professor\IProfessor.cs" />
     <Compile Include="Login\ILoginConnection.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>ScheduleModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ScheduleLogic.cs" />
+    <Compile Include="Schedule\ScheduleLogic.cs" />
     <Compile Include="ScheduleModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,7 +105,7 @@
       <DependentUpon>ScheduleModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExtensionClasses\Subject.Ext.cs" />
-    <Compile Include="SubjectLogic.cs" />
+    <Compile Include="Subject\SubjectLogic.cs" />
     <Compile Include="User.cs">
       <DependentUpon>ScheduleModel.tt</DependentUpon>
     </Compile>

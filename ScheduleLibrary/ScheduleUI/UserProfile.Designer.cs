@@ -92,9 +92,9 @@
             // 
             this.btnUpdateUser.BackColor = System.Drawing.Color.SteelBlue;
             this.btnUpdateUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateUser.Location = new System.Drawing.Point(68, 307);
+            this.btnUpdateUser.Location = new System.Drawing.Point(68, 303);
             this.btnUpdateUser.Name = "btnUpdateUser";
-            this.btnUpdateUser.Size = new System.Drawing.Size(230, 54);
+            this.btnUpdateUser.Size = new System.Drawing.Size(230, 49);
             this.btnUpdateUser.TabIndex = 6;
             this.btnUpdateUser.Text = "Update user";
             this.btnUpdateUser.UseVisualStyleBackColor = false;
@@ -106,7 +106,7 @@
             this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteUser.Location = new System.Drawing.Point(68, 367);
             this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(230, 55);
+            this.btnDeleteUser.Size = new System.Drawing.Size(230, 51);
             this.btnDeleteUser.TabIndex = 7;
             this.btnDeleteUser.Text = "Delete user";
             this.btnDeleteUser.UseVisualStyleBackColor = false;

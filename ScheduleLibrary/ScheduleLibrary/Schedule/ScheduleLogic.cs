@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ScheduleLibrary
 {
-    public static class ScheduleLogic
+    public class ScheduleLogic: ISchedule
     {
-        public static List<Subject> GetSelectedScheduleSubjects(Schedule selectedSchedule)
+        public List<Subject> GetSelectedScheduleSubjects(Schedule selectedSchedule)
         {
             List<Subject> subjects = new List<Subject>();
 
@@ -27,7 +27,7 @@ namespace ScheduleLibrary
             return subjects;
         }
 
-        public static void CreateSchedule(User user, string name)
+        public void CreateSchedule(User user, string name)
         {
             using (var context = new SchedulesEntities1())
             {               
@@ -43,7 +43,7 @@ namespace ScheduleLibrary
             }
         }
 
-        public static List<Subject> GetFilteredScheduleSubjects(Schedule selectedSchedule, string day)
+        public List<Subject> GetFilteredScheduleSubjects(Schedule selectedSchedule, string day)
         {
             List<Subject> subjects = new List<Subject>();
           
@@ -73,7 +73,7 @@ namespace ScheduleLibrary
             return subjects;
         }
 
-        public static List<Schedule> GetSchedules(User user)
+        public List<Schedule> GetSchedules(User user)
         {
             using (var context = new SchedulesEntities1())
             {
@@ -81,7 +81,7 @@ namespace ScheduleLibrary
             }
         }
 
-        public static void DeleteSchedule(Schedule selectedSchedule)
+        public void DeleteSchedule(Schedule selectedSchedule)
         {
             using (var context = new SchedulesEntities1())
             {

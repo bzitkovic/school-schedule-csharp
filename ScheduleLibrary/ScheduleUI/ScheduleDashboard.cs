@@ -23,7 +23,7 @@ namespace ScheduleUI
 
         private void ScheduleDashboard_Load(object sender, EventArgs e)
         {
-            cmbSchedules.DataSource = ScheduleLogic.GetSchedules(currentUser);
+            cmbSchedules.DataSource = GlobalConfig.Schedule.GetSchedules(currentUser);
         }       
 
         private void btnSelectSchedule_Click(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace ScheduleUI
 
         private void ScheduleDashboard_Activated(object sender, EventArgs e)
         {
-            cmbSchedules.DataSource = ScheduleLogic.GetSchedules(currentUser);
+            cmbSchedules.DataSource = GlobalConfig.Schedule.GetSchedules(currentUser);
         }
     }
 }
